@@ -18,7 +18,9 @@
               "--node-env=development"
             ]
           }
-        }
+        },
+
+        "dependsOn": ["generate-types"]
       },
       "serve": {
         "continuous": true,
@@ -50,6 +52,18 @@
           "build"
         ],
         "command": "docker build -f apps/jobber-auth/Dockerfile . -t jobber-jobber-auth"
+      },
+      "generate-types": {
+        "command": "prisma generate",
+        "options":{
+          "cwd": "apps/jobber-auth"
+        }
+      },
+      "migrate-prisma":{
+        "command": "prisma migrate dev",
+        "options": {
+          "cwd": "apps/jobber-auth"
+        }
       }
     }
   }
